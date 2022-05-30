@@ -30,7 +30,7 @@ std::string License::formattedExpiry() const {
   return Utils::timevalToString(tval, "%d %b, %Y %H:%m UTC");
 }
 
-std::string License::toString() {
+std::string License::toString() const {
   JsonObject::Json j;
   j["licensee"] = m_licensee;
   if (!m_licenseeSignature.empty()) {

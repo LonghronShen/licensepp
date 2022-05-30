@@ -60,7 +60,7 @@ public:
 
   inline std::string additionalPayload() const { return m_additionalPayload; }
 
-  std::string toString();
+  std::string toString() const;
 
   ///
   /// \brief Returns raw format of license
