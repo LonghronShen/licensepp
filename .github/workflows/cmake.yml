@@ -38,7 +38,7 @@ jobs:
         run: cmake --build . --config ${{env.BUILD_TYPE}} -j $(nproc)
 
       - name: Test
-        working-directory: ${{github.workspace}}/test
+        working-directory: ${{github.workspace}}/build/test
         # Build your program with the given configuration
         run: ctest .
 
