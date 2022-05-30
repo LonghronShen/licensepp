@@ -5,7 +5,7 @@
 //  Copyright © 2018-present Amrayn Web Services
 //  https://amrayn.com
 //
-//  See https://github.com/amrayn/licensepp/blob/master/LICENSE 
+//  See https://github.com/amrayn/licensepp/blob/master/LICENSE
 //
 
 #ifndef EDA76FF9_EF0C_4387_9D21_F370311DF3E6
@@ -18,117 +18,85 @@ namespace licensepp {
 ///
 /// \brief License model
 ///
-class License
-{
+class License {
 public:
-    License();
+  License();
 
-    inline void setLicensee(const std::string& licensee)
-    {
-        m_licensee = licensee;
-    }
+  inline void setLicensee(const std::string &licensee) {
+    m_licensee = licensee;
+  }
 
-    inline void setIssuingAuthorityId(const std::string& issuingAuthorityId)
-    {
-        m_issuingAuthorityId = issuingAuthorityId;
-    }
+  inline void setIssuingAuthorityId(const std::string &issuingAuthorityId) {
+    m_issuingAuthorityId = issuingAuthorityId;
+  }
 
-    inline void setLicenseeSignature(const std::string& licenseeSignature)
-    {
-        m_licenseeSignature = licenseeSignature;
-    }
+  inline void setLicenseeSignature(const std::string &licenseeSignature) {
+    m_licenseeSignature = licenseeSignature;
+  }
 
-    inline void setAuthoritySignature(const std::string& authoritySignature)
-    {
-        m_authoritySignature = authoritySignature;
-    }
+  inline void setAuthoritySignature(const std::string &authoritySignature) {
+    m_authoritySignature = authoritySignature;
+  }
 
-    inline void setExpiryDate(uint64_t expiryDate)
-    {
-        m_expiryDate = expiryDate;
-    }
+  inline void setExpiryDate(uint64_t expiryDate) { m_expiryDate = expiryDate; }
 
-    inline void setIssueDate(uint64_t issueDate)
-    {
-        m_issueDate = issueDate;
-    }
+  inline void setIssueDate(uint64_t issueDate) { m_issueDate = issueDate; }
 
-    inline void setAdditionalPayload(const std::string& additionalPayload)
-    {
-        m_additionalPayload = additionalPayload;
-    }
+  inline void setAdditionalPayload(const std::string &additionalPayload) {
+    m_additionalPayload = additionalPayload;
+  }
 
-    inline std::string licensee() const
-    {
-        return m_licensee;
-    }
+  inline std::string licensee() const { return m_licensee; }
 
-    inline std::string issuingAuthorityId() const
-    {
-        return m_issuingAuthorityId;
-    }
+  inline std::string issuingAuthorityId() const { return m_issuingAuthorityId; }
 
-    inline std::string licenseeSignature() const
-    {
-        return m_licenseeSignature;
-    }
+  inline std::string licenseeSignature() const { return m_licenseeSignature; }
 
-    inline std::string authoritySignature() const
-    {
-        return m_authoritySignature;
-    }
+  inline std::string authoritySignature() const { return m_authoritySignature; }
 
-    inline uint64_t expiryDate() const
-    {
-        return m_expiryDate;
-    }
+  inline uint64_t expiryDate() const { return m_expiryDate; }
 
-    inline uint64_t issueDate() const
-    {
-        return m_issueDate;
-    }
+  inline uint64_t issueDate() const { return m_issueDate; }
 
-    inline std::string additionalPayload() const
-    {
-        return m_additionalPayload;
-    }
+  inline std::string additionalPayload() const { return m_additionalPayload; }
 
+  std::string toString();
 
-    std::string toString();
+  ///
+  /// \brief Returns raw format of license
+  ///
+  std::string raw() const;
 
-    ///
-    /// \brief Returns raw format of license
-    ///
-    std::string raw() const;
+  ///
+  /// \brief Returns expiry date in <pre>%d %b, %Y %H:%m UTC</pre> format
+  ///
+  std::string formattedExpiry() const;
 
-    ///
-    /// \brief Returns expiry date in <pre>%d %b, %Y %H:%m UTC</pre> format
-    ///
-    std::string formattedExpiry() const;
+  ///
+  /// \brief Loads itself from base64 input
+  /// \throws LicenseException if license is invalid
+  ///
+  bool load(const std::string &licenseBase64);
 
-    ///
-    /// \brief Loads itself from base64 input
-    /// \throws LicenseException if license is invalid
-    ///
-    bool load(const std::string& licenseBase64);
+  ///
+  /// \brief Loads itself from license file containing base64 license
+  /// \throws LicenseException if license is invalid
+  ///
+  bool loadFromFile(const std::string &licensefile);
 
-    ///
-    /// \brief Loads itself from license file containing base64 license
-    /// \throws LicenseException if license is invalid
-    ///
-    bool loadFromFile(const std::string& licensefile);
+  static std::string generate_kv_pair(std::uint32_t length = 2048,
+                                      const std::string &secret = "");
 
 protected:
+  uint64_t m_issueDate;
+  uint64_t m_expiryDate;
 
-    uint64_t m_issueDate;
-    uint64_t m_expiryDate;
-
-    std::string m_licensee;
-    std::string m_issuingAuthorityId;
-    std::string m_licenseeSignature;
-    std::string m_authoritySignature;
-    std::string m_additionalPayload;
+  std::string m_licensee;
+  std::string m_issuingAuthorityId;
+  std::string m_licenseeSignature;
+  std::string m_authoritySignature;
+  std::string m_additionalPayload;
 };
-}
+} // namespace licensepp
 
 #endif /* EDA76FF9_EF0C_4387_9D21_F370311DF3E6 */
